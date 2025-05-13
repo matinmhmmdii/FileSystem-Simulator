@@ -102,6 +102,17 @@ class FileSystem:
         except ValueError as e:
             print(f"Error: {e}")
 
+    def editline(self, path: str, line_num: int, text: str):
+        try:
+            parent_path, name = path.rsplit("/", 1) if "/" in path else ("", path)
+            parent = self.resolve_path(parent_path)
+            node = parent.get_child(name)
+            if not isinstance(node, File):
+                raise ValueError(f"File not found or not a file: {name}")
+            node.edit_line(line_num, text)
+        except ValueError as e:
+            print(f"Error: {e}")
+
     def cat(self, path: str):
         try:
             parent_path, name = path.rsplit("/", 1) if "/" in path else ("", path)

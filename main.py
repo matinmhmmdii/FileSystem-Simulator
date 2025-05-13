@@ -26,6 +26,13 @@ def main():
                 fs.nwfiletxt(parts[1])
             elif command == "appendtxt" and len(parts) == 2:
                 fs.appendtxt(parts[1])
+            elif command == "editline" and len(parts) >= 4:
+                try:
+                    line_num = int(parts[2])
+                    text = " ".join(parts[3:])
+                    fs.editline(parts[1], line_num, text)
+                except ValueError:
+                    print(f"Error: Invalid line number or arguments")
             elif command == "cat" and len(parts) == 2:
                 fs.cat(parts[1])
             else:
