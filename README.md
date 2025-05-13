@@ -22,8 +22,9 @@ file_system_project/
 │   ├── __init__.py
 │   ├── node.py
 │   ├── filesystem.py
-│   └── main.py
+│   
 ├── .gitignore
+├── main.py
 ├── README.md
 └── requirements.txt
 ```
