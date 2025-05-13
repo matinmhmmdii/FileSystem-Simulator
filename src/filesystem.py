@@ -47,3 +47,9 @@ class FileSystem:
             parent.add_child(new_file)
         except ValueError as e:
             print(f"Error: {e}")
+
+    def cd(self, path: str):
+        try:
+            self.current_directory = self.resolve_path(path)
+        except ValueError as e:
+            print(f"Error: {e}")

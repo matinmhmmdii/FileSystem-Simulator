@@ -16,6 +16,8 @@ def main():
                 fs.mkdir("", parts[1])
             elif command == "touch" and len(parts) == 2:
                 fs.touch("", parts[1])
+            elif command == "cd" and len(parts) == 2:
+                fs.cd(parts[1])
             else:
                 print("Invalid command or arguments")
         except Exception as e:
