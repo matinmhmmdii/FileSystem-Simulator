@@ -27,3 +27,13 @@ class FileSystem:
                     raise ValueError(f"Path not found or not a directory: {part}")
                 current = child
         return current
+
+    def mkdir(self, path: str, folder_name: str):
+        try:
+            parent = self.resolve_path(path)
+            if folder_name in parent.children:
+                raise ValueError(f"Directory '{folder_name}' already exists")
+            new_dir = Directory(folder_name, parent)
+            parent.add_child(new_dir)
+        except ValueError as e:
+            print(f"Error: {e}")
