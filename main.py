@@ -33,6 +33,8 @@ def main():
                     fs.editline(parts[1], line_num, text)
                 except ValueError:
                     print(f"Error: Invalid line number or arguments")
+            elif command == "deline" and len(parts) == 3:
+                fs.deline(parts[1], int(parts[2]))
             elif command == "cat" and len(parts) == 2:
                 fs.cat(parts[1])
             else:

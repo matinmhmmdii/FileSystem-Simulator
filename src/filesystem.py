@@ -113,6 +113,17 @@ class FileSystem:
         except ValueError as e:
             print(f"Error: {e}")
 
+    def deline(self, path: str, line_num: int):
+        try:
+            parent_path, name = path.rsplit("/", 1) if "/" in path else ("", path)
+            parent = self.resolve_path(parent_path)
+            node = parent.get_child(name)
+            if not isinstance(node, File):
+                raise ValueError(f"File not found or not a file: {name}")
+            node.delete_line(line_num)
+        except ValueError as e:
+            print(f"Error: {e}")
+
     def cat(self, path: str):
         try:
             parent_path, name = path.rsplit("/", 1) if "/" in path else ("", path)

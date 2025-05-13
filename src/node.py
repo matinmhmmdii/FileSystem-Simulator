@@ -31,6 +31,13 @@ class File(Node):
         else:
             self.content[line_num - 1] = text
 
+    def delete_line(self, line_num: int):
+        if not isinstance(line_num, int) or line_num < 1:
+            raise ValueError("Line number must be a positive integer")
+        if line_num > len(self.content):
+            raise ValueError(f"Line number {line_num} is out of range (file has {len(self.content)} lines)")
+        self.content.pop(line_num - 1)
+
 class Directory(Node):
     def __init__(self, name: str, parent: Optional['Directory'] = None):
         super().__init__(name, parent)
