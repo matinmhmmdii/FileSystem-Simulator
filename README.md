@@ -26,7 +26,7 @@ A simple in-memory file system simulator written in Python. This project impleme
 Run the main script:
 
 ```bash
-python src/main.py
+python main.py
 ```
 
 Enter commands at the prompt (e.g., `/ $`). Type `exit` to quit.
