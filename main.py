@@ -24,6 +24,8 @@ def main():
                 fs.ls()
             elif command == "nwfiletxt" and len(parts) == 2:
                 fs.nwfiletxt(parts[1])
+            elif command == "appendtxt" and len(parts) == 2:
+                fs.appendtxt(parts[1])
             elif command == "cat" and len(parts) == 2:
                 fs.cat(parts[1])
             else:
