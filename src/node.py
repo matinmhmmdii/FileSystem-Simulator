@@ -1,4 +1,4 @@
-from typing import Dict, Optional
+from typing import Dict, List, Optional
 
 class Node:
     def __init__(self, name: str, parent: Optional['Directory'] = None):
@@ -10,6 +10,16 @@ class Node:
             return "/"
         parent_path = self.parent.get_path()
         return f"{parent_path}/{self.name}" if parent_path != "/" else f"/{self.name}"
+
+class File(Node):
+    def __init__(self, name: str, parent: 'Directory'):
+        if not name.endswith(".txt"):
+            name += ".txt"
+        super().__init__(name, parent)
+        self.content: List[str] = []
+
+    def append(self, text: str):
+        self.content.append(text)
 
 class Directory(Node):
     def __init__(self, name: str, parent: Optional['Directory'] = None):
