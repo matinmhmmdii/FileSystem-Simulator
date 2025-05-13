@@ -124,6 +124,30 @@ class FileSystem:
         except ValueError as e:
             print(f"Error: {e}")
 
+    def mv(self, src_path: str, dst_path: str):
+        try:
+            src_parent_path, src_name = src_path.rsplit("/", 1) if "/" in src_path else ("", src_path)
+            src_parent = self.resolve_path(src_parent_path)
+            node = src_parent.get_child(src_name)
+            if not node:
+                raise ValueError(f"Source path not found: {src_path}")
+            dst_parent_path, dst_name = dst_path.rsplit("/", 1) if "/" in dst_path else ("", dst_path)
+            dst_parent = self.resolve_path(dst_parent_path)
+            dst_node = dst_parent.get_child(dst_name)
+            if isinstance(dst_node, Directory):
+                dst_parent = dst_node
+                dst_name = src_name
+            elif dst_node:
+                raise ValueError(f"Destination already exists: {dst_path}")
+            src_parent.remove_child(src_name)
+            node.name = dst_name if dst_name else src_name
+            if isinstance(node, File) and not node.name.endswith(".txt"):
+                node.name += ".txt"
+            dst_parent.add_child(node)
+            node.parent = dst_parent
+        except ValueError as e:
+            print(f"Error: {e}")
+
     def cat(self, path: str):
         try:
             parent_path, name = path.rsplit("/", 1) if "/" in path else ("", path)
