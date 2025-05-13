@@ -182,6 +182,23 @@ class FileSystem:
                 dst_dir.add_child(new_subdir)
                 self._copy_directory(node, new_subdir)
 
+    def rename(self, path: str, new_name: str):
+        try:
+            parent_path, name = path.rsplit("/", 1) if "/" in path else ("", path)
+            parent = self.resolve_path(parent_path)
+            node = parent.get_child(name)
+            if not node:
+                raise ValueError(f"Path not found: {path}")
+            if new_name in parent.children:
+                raise ValueError(f"Name '{new_name}' already exists")
+            if isinstance(node, File) and not new_name.endswith(".txt"):
+                new_name += ".txt"
+            parent.remove_child(name)
+            node.name = new_name
+            parent.add_child(node)
+        except ValueError as e:
+            print(f"Error: {e}")
+
     def cat(self, path: str):
         try:
             parent_path, name = path.rsplit("/", 1) if "/" in path else ("", path)

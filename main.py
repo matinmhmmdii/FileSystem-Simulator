@@ -39,6 +39,8 @@ def main():
                 fs.mv(parts[1], parts[2])
             elif command == "cp" and len(parts) == 3:
                 fs.cp(parts[1], parts[2])
+            elif command == "rename" and len(parts) == 3:
+                fs.rename(parts[1], parts[2])
             elif command == "cat" and len(parts) == 2:
                 fs.cat(parts[1])
             else:
