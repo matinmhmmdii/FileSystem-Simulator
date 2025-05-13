@@ -1,4 +1,5 @@
 from typing import Optional
+from copy import deepcopy
 from .node import Directory, File
 
 class FileSystem:
@@ -147,6 +148,39 @@ class FileSystem:
             node.parent = dst_parent
         except ValueError as e:
             print(f"Error: {e}")
+
+    def cp(self, src_path: str, dst_path: str):
+        try:
+            src_parent_path, src_name = src_path.rsplit("/", 1) if "/" in src_path else ("", src_path)
+            src_parent = self.resolve_path(src_parent_path)
+            node = src_parent.get_child(src_name)
+            if not node:
+                raise ValueError(f"Source path not found: {src_path}")
+            dst_parent_path, dst_name = dst_path.rsplit("/", 1) if "/" in dst_path else ("", dst_path)
+            dst_parent = self.resolve_path(dst_parent_path)
+            if dst_name in dst_parent.children:
+                raise ValueError(f"Destination already exists: {dst_path}")
+            if isinstance(node, File):
+                new_file = File(dst_name, dst_parent)
+                new_file.content = deepcopy(node.content)
+                dst_parent.add_child(new_file)
+            else:
+                new_dir = Directory(dst_name, dst_parent)
+                dst_parent.add_child(new_dir)
+                self._copy_directory(node, new_dir)
+        except ValueError as e:
+            print(f"Error: {e}")
+
+    def _copy_directory(self, src_dir: Directory, dst_dir: Directory):
+        for name, node in src_dir.children.items():
+            if isinstance(node, File):
+                new_file = File(name, dst_dir)
+                new_file.content = deepcopy(node.content)
+                dst_dir.add_child(new_file)
+            else:
+                new_subdir = Directory(name, dst_dir)
+                dst_dir.add_child(new_subdir)
+                self._copy_directory(node, new_subdir)
 
     def cat(self, path: str):
         try:

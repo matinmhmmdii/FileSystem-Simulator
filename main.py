@@ -37,6 +37,8 @@ def main():
                 fs.deline(parts[1], int(parts[2]))
             elif command == "mv" and len(parts) == 3:
                 fs.mv(parts[1], parts[2])
+            elif command == "cp" and len(parts) == 3:
+                fs.cp(parts[1], parts[2])
             elif command == "cat" and len(parts) == 2:
                 fs.cat(parts[1])
             else:
