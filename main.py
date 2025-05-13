@@ -14,10 +14,12 @@ def main():
         try:
             if command == "mkdir" and len(parts) == 2:
                 fs.mkdir("", parts[1])
+            elif command == "touch" and len(parts) == 2:
+                fs.touch("", parts[1])
             else:
                 print("Invalid command or arguments")
         except Exception as e:
             print(f"Error: {e}")
 
 if __name__ == "__main__":
-    main ()
+    main()

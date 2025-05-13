@@ -1,5 +1,5 @@
 from typing import Optional
-from .node import Directory
+from .node import Directory, File
 
 class FileSystem:
     def __init__(self):
@@ -35,5 +35,15 @@ class FileSystem:
                 raise ValueError(f"Directory '{folder_name}' already exists")
             new_dir = Directory(folder_name, parent)
             parent.add_child(new_dir)
+        except ValueError as e:
+            print(f"Error: {e}")
+
+    def touch(self, path: str, file_name: str):
+        try:
+            parent = self.resolve_path(path)
+            if file_name in parent.children:
+                raise ValueError(f"File '{file_name}' already exists")
+            new_file = File(file_name, parent)
+            parent.add_child(new_file)
         except ValueError as e:
             print(f"Error: {e}")
