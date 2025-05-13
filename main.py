@@ -22,6 +22,8 @@ def main():
                 fs.cd(parts[1])
             elif command == "ls" and len(parts) == 1:
                 fs.ls()
+            elif command == "cat" and len(parts) == 2:
+                fs.cat(parts[1])
             else:
                 print("Invalid command or arguments")
         except Exception as e:

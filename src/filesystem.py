@@ -67,3 +67,14 @@ class FileSystem:
     def ls(self):
         children = sorted(self.current_directory.children.keys())
         print(" ".join(children) if children else "Empty directory")
+
+    def cat(self, path: str):
+        try:
+            parent_path, name = path.rsplit("/", 1) if "/" in path else ("", path)
+            parent = self.resolve_path(parent_path)
+            node = parent.get_child(name)
+            if not isinstance(node, File):
+                raise ValueError(f"File not found or not a file: {name}")
+            print("\n".join(node.content) if node.content else "Empty file")
+        except ValueError as e:
+            print(f"Error: {e}")
