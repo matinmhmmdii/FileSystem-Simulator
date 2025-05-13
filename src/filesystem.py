@@ -48,6 +48,16 @@ class FileSystem:
         except ValueError as e:
             print(f"Error: {e}")
 
+    def rm(self, path: str):
+        try:
+            parent_path, name = path.rsplit("/", 1) if "/" in path else ("", path)
+            parent = self.resolve_path(parent_path)
+            if name not in parent.children:
+                raise ValueError(f"Path not found: {name}")
+            parent.remove_child(name)
+        except ValueError as e:
+            print(f"Error: {e}")
+
     def cd(self, path: str):
         try:
             self.current_directory = self.resolve_path(path)

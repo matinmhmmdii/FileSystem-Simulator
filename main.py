@@ -16,6 +16,8 @@ def main():
                 fs.mkdir("", parts[1])
             elif command == "touch" and len(parts) == 2:
                 fs.touch("", parts[1])
+            elif command == "rm" and len(parts) == 2:
+                fs.rm(parts[1])
             elif command == "cd" and len(parts) == 2:
                 fs.cd(parts[1])
             elif command == "ls" and len(parts) == 1:
