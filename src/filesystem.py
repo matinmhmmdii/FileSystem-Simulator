@@ -53,3 +53,7 @@ class FileSystem:
             self.current_directory = self.resolve_path(path)
         except ValueError as e:
             print(f"Error: {e}")
+
+    def ls(self):
+        children = sorted(self.current_directory.children.keys())
+        print(" ".join(children) if children else "Empty directory")
