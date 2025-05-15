@@ -4,7 +4,7 @@ pycache/
 *.pyd
 .Python
 env/
-venv/
+FSenv/
 .idea/
 *.swp 
 *.swo
